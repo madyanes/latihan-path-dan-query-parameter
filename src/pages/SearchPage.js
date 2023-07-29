@@ -7,11 +7,13 @@ import { useSearchParams } from 'react-router-dom';
 const SearchPageWrapper = () => {
   const [searchParams, setSearchParams] = useSearchParams()
 
+  const title = searchParams.get('title')
+
   const changeSearchParams = (keyword) => {
     setSearchParams({ title: keyword })
   }
 
-  return <SearchPage onSearch={changeSearchParams} />
+  return <SearchPage onSearch={changeSearchParams} activeKeyword={title} />
 }
 
 class SearchPage extends React.Component {
@@ -39,7 +41,7 @@ class SearchPage extends React.Component {
     return (
       <section>
         <h2>Search Movie</h2>
-        <SearchBar search={this.onSearch} />
+        <SearchBar search={this.onSearch} defaultKeyword={this.props.activeKeyword} />
         <MovieList movies={this.state.foundedMovies} />
       </section>
     );
