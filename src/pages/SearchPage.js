@@ -2,6 +2,17 @@ import React from 'react';
 import SearchBar from '../components/SearchBar';
 import MovieList from '../components/MovieList';
 import { searchMovies } from '../utils/data';
+import { useSearchParams } from 'react-router-dom';
+
+const SearchPageWrapper = () => {
+  const [searchParams, setSearchParams] = useSearchParams()
+
+  const changeSearchParams = (keyword) => {
+    setSearchParams({ title: keyword })
+  }
+
+  return <SearchPage onSearch={changeSearchParams} />
+}
 
 class SearchPage extends React.Component {
   constructor(props) {
@@ -20,6 +31,8 @@ class SearchPage extends React.Component {
         foundedMovies: searchMovies(keyword)
       };
     });
+
+    this.props.onSearch(keyword)
   }
 
   render() {
@@ -33,4 +46,4 @@ class SearchPage extends React.Component {
   }
 }
 
-export default SearchPage;
+export default SearchPageWrapper;
