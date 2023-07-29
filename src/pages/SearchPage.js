@@ -21,7 +21,7 @@ class SearchPage extends React.Component {
     super(props);
 
     this.state = {
-      foundedMovies: searchMovies(props.activeKeyword)
+      foundedMovies: props.activeKeyword ? searchMovies(props.activeKeyword) : []
     };
 
     this.onSearch = this.onSearch.bind(this);
